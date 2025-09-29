@@ -275,15 +275,12 @@ export class GitHubProjectsService {
    * Create a new project for a user
    */
   async createUserProject(user: string, options: CreateProjectOptions): Promise<ProjectV2> {
+    // User projects have a simpler schema - only title and ownerId are supported
     const mutation = `
-      mutation createProject($ownerId: ID!, $title: String!, $shortDescription: String, $readme: String, $public: Boolean, $template: String) {
+      mutation createProject($ownerId: ID!, $title: String!) {
         createProjectV2(input: {
           ownerId: $ownerId
           title: $title
-          shortDescription: $shortDescription
-          readme: $readme
-          public: $public
-          template: $template
         }) {
           projectV2 {
             id
@@ -319,10 +316,6 @@ export class GitHubProjectsService {
       const response: any = await this.client.executeGraphQL(mutation, {
         ownerId: userResponse.user.id,
         title: options.title,
-        shortDescription: options.shortDescription,
-        readme: options.readme,
-        public: options.public ?? false,
-        template: options.template,
       });
 
       const project = response.createProjectV2.projectV2;
@@ -391,8 +384,13 @@ export class GitHubProjectsService {
     owner: string,
     title: string,
     options: CreateProjectOptions,
-    isOrg: boolean = true
+    isOrg?: boolean
   ): Promise<ProjectV2> {
+    // If isOrg is not specified, try to auto-detect by attempting both
+    if (isOrg === undefined) {
+      return await this.ensureProjectAutoDetect(owner, title, options);
+    }
+
     const existingProject = await this.findProject(owner, title, isOrg);
     if (existingProject) {
       logger.debug(`Project '${title}' already exists for ${isOrg ? 'org' : 'user'} '${owner}'`);
@@ -403,6 +401,52 @@ export class GitHubProjectsService {
     return isOrg 
       ? await this.createOrgProject(owner, options)
       : await this.createUserProject(owner, options);
+  }
+
+  /**
+   * Auto-detect whether owner is organization or user and ensure project
+   */
+  private async ensureProjectAutoDetect(
+    owner: string,
+    title: string,
+    options: CreateProjectOptions
+  ): Promise<ProjectV2> {
+    // First try to find existing project in organization
+    let existingProject = await this.findProject(owner, title, true);
+    if (existingProject) {
+      logger.debug(`Project '${title}' already exists for org '${owner}'`);
+      return existingProject;
+    }
+
+    // Then try to find existing project in user account
+    existingProject = await this.findProject(owner, title, false);
+    if (existingProject) {
+      logger.debug(`Project '${title}' already exists for user '${owner}'`);
+      return existingProject;
+    }
+
+    // No existing project found, try to create as organization first
+    try {
+      logger.info(`Creating project '${title}' for org '${owner}'`);
+      return await this.createOrgProject(owner, options);
+    } catch (orgError) {
+      logger.debug(`Failed to create project as organization, trying as user: ${orgError instanceof Error ? orgError.message : String(orgError)}`);
+      
+      // If organization creation fails, try as user
+      try {
+        logger.info(`Creating project '${title}' for user '${owner}'`);
+        return await this.createUserProject(owner, options);
+      } catch (userError) {
+        // Both failed, throw the more descriptive error
+        throw new GitHubError(`Failed to create project '${title}' for '${owner}' as either organization or user`, {
+          cause: userError,
+          owner,
+          title,
+          orgError: orgError instanceof Error ? orgError.message : String(orgError),
+          userError: userError instanceof Error ? userError.message : String(userError),
+        });
+      }
+    }
   }
 
   /**

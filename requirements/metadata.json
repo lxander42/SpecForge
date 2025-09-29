@@ -1,0 +1,15 @@
+{
+  "version": "0.1.0",
+  "generatedAt": "2025-09-29T04:10:19.185Z",
+  "contentHash": "78e9d2b1fbdf229f9da96f798ac360899fc8385a435ba74256649f56dd59cb3d",
+  "sections": [
+    "functional",
+    "performance",
+    "environmental",
+    "interfaces",
+    "safety",
+    "verification",
+    "acceptance"
+  ],
+  "totalRequirements": 0
+}

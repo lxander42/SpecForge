@@ -250,6 +250,30 @@ export class GitHubMilestonesService {
   }
 
   /**
+   * Ensure multiple milestones exist, creating or updating them as necessary
+   */
+  async ensureMilestones(owner: string, repo: string, milestones: CreateMilestoneOptions[]): Promise<Milestone[]> {
+    const results: Milestone[] = [];
+    
+    // Process milestones in batches to respect rate limits
+    const batchSize = 5;
+    for (let i = 0; i < milestones.length; i += batchSize) {
+      const batch = milestones.slice(i, i + batchSize);
+      const batchPromises = batch.map(milestone => this.ensureMilestone(owner, repo, milestone.title, milestone));
+      const batchResults = await Promise.all(batchPromises);
+      results.push(...batchResults);
+
+      // Small delay between batches to be gentle on rate limits
+      if (i + batchSize < milestones.length) {
+        await new Promise(resolve => setTimeout(resolve, 200));
+      }
+    }
+
+    logger.info(`Ensured ${results.length} milestones in ${owner}/${repo}`);
+    return results;
+  }
+
+  /**
    * Create multiple milestones in batches
    */
   async createMilestones(owner: string, repo: string, milestones: CreateMilestoneOptions[]): Promise<Milestone[]> {

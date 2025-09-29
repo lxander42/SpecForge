@@ -253,10 +253,10 @@ export default class Init extends Command {
       // Create standard milestones
       const milestonesService = getGitHubMilestonesService();
       const standardMilestones = milestonesService.getStandardMilestones();
-      const createdMilestones = await milestonesService.createMilestones(args.org, args.repo, standardMilestones);
+      const createdMilestones = await milestonesService.ensureMilestones(args.org, args.repo, standardMilestones);
       result.created.milestones = createdMilestones.length;
       
-      logger.info('Created milestones', { count: result.created.milestones });
+      logger.info('Created/ensured milestones', { count: result.created.milestones });
 
       // Create project board
       const projectsService = getGitHubProjectsService();
@@ -265,7 +265,7 @@ export default class Init extends Command {
         title: projectTitle,
         shortDescription: `Hardware project tracking for ${args.repo}`,
         public: false,
-      }, true);
+      });
       
       if (project) {
         result.created.projects = 1;
