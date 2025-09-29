@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
 import { graphql } from '@octokit/graphql';
-import { Config } from '../../lib/config.js';
+import { getConfig } from '../../lib/config.js';
 import { logger } from '../telemetry/logger.js';
 import { SpecForgeError, GitHubError } from '../../lib/errors.js';
 
@@ -22,14 +22,14 @@ export interface RateLimitInfo {
 
 export class GitHubClient {
   private rest: Octokit;
-  private graphql: GraphQLClient;
+  private graphql: typeof graphql;
   private retryAttempts: number;
   private retryDelayMs: number;
   private maxRetryDelayMs: number;
 
   constructor(options: GitHubClientOptions = {}) {
-    const config = new Config();
-    const auth = options.auth || config.get('github.token') || process.env.GITHUB_TOKEN;
+    const config = getConfig();
+    const auth = options.auth || config.github?.token || process.env.GITHUB_TOKEN;
     if (!auth) {
       throw new SpecForgeError('GitHub token is required. Set GITHUB_TOKEN environment variable or configure via CLI.');
     }
@@ -65,10 +65,12 @@ export class GitHubClient {
       },
     });
 
-    this.graphql = new GraphQLClient({
-      auth,
+    this.graphql = graphql.defaults({
+      headers: {
+        authorization: `token ${auth}`,
+        'user-agent': options.userAgent || 'SpecForge/1.0.0',
+      },
       baseUrl: options.baseUrl ? `${options.baseUrl}/graphql` : undefined,
-      userAgent: options.userAgent || 'SpecForge/1.0.0',
     });
   }
 
@@ -213,7 +215,7 @@ export class GitHubClient {
   /**
    * Get the underlying GraphQL client
    */
-  get graphqlClient(): GraphQLClient {
+  get graphqlClient(): typeof graphql {
     return this.graphql;
   }
 }

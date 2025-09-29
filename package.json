@@ -41,6 +41,12 @@
     "LICENSE"
   ],
   "type": "module",
+  "oclif": {
+    "bin": "specforge",
+    "dirname": "specforge",
+    "commands": "./dist/src/cli",
+    "topicSeparator": " "
+  },
   "dependencies": {
     "@oclif/core": "4.5.4",
     "@octokit/graphql": "9.0.1",
