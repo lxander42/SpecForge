@@ -1,0 +1,41 @@
+# Source files
+src/
+tests/
+specs/
+dist/tests/
+
+# Development files
+*.ts
+!*.d.ts
+tsconfig.json
+vitest.config.ts
+eslint.config.js
+
+# Development dependencies
+node_modules/
+.git/
+.github/
+
+# Logs and temporary files
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Coverage reports
+coverage/
+.nyc_output/
+
+# Build artifacts that shouldn't be published
+*.tgz

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specforge.dev/schemas/refactor.schema.json",
+  "title": "RefactorCommand",
+  "type": "object",
+  "properties": {
+    "org": { "type": "string" },
+    "repo": { "type": "string" },
+    "reconcile": { "type": "boolean" },
+    "prune": { "type": "boolean" },
+    "dryRun": { "type": "boolean" },
+    "json": { "type": "boolean" }
+  },
+  "required": ["org", "repo"],
+  "additionalProperties": false
+}
+
