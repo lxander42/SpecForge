@@ -207,42 +207,52 @@ T034. CLI command: labels
 - Ensure labels/milestones/projects exist
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\labels.ts --help | cat`
 
-T035. Make contract tests pass by implementing minimal validation wiring
+T035. CLI command: constitution
+- File: C:\\SpecForge\\src\\cli\\constitution.ts
+- Implement /constitution step for project-specific principles and constraints
+- Run: `npx tsx C:\\SpecForge\\src\\cli\\constitution.ts --help | cat`
+
+T036. README section generation service (missing coverage for FR-022)
+- Files: C:\\SpecForge\\src\\services\\requirements\\readme.ts
+- Generate README sections explaining slash commands, phase flows, and refactor requests
+- Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.requirements.readme.test.ts`
+
+T037. Make contract tests pass by implementing minimal validation wiring
 - Files: C:\\SpecForge\\src\\lib\\schema.ts, C:\\SpecForge\\src\\cli\\init.ts, C:\\SpecForge\\src\\cli\\refactor.ts
 - Ensure commands validate against schemas before execution
 - Run: `npm run test:contract`
 
-T036. Make integration tests pass for init and refactor
+T038. Make integration tests pass for init and refactor
 - Files: C:\\SpecForge\\src\\services\\github\\*, C:\\SpecForge\\src\\services\\wbs\\*, C:\\SpecForge\\src\\services\\reconciliation\\*, C:\\SpecForge\\src\\cli\\init.ts, C:\\SpecForge\\src\\cli\\refactor.ts
 - Implement flows end-to-end with dryRun stubs if needed
 - Run: `npm run test:integration`
 
-T037. Make integration tests pass for requirements and approvals
+T039. Make integration tests pass for requirements and approvals
 - Files: C:\\SpecForge\\src\\services\\requirements\\*, C:\\SpecForge\\src\\cli\\baseline.ts
 - Implement baseline tagging and changelog emission
 - Run: `npm run test:integration`
 
-T038. Make AI-assistable labeling test pass
+T040. Make AI-assistable labeling test pass
 - Files: C:\\SpecForge\\src\\lib\\rules.ts, C:\\SpecForge\\src\\services\\wbs\\generator.ts
 - Enforce policy and attach hints appropriately
 - Run: `npm run test:integration`
 
-T039. Integration glue: retries/backoff and graceful degradation [P]
+T041. Integration glue: retries/backoff and graceful degradation [P]
 - Files: C:\\SpecForge\\src\\services\\github\\client.ts
 - Implement exponential backoff with jitter and budget caps
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.github.retry.test.ts`
 
-T040. Polish: unit tests for libs and services [P]
+T042. Polish: unit tests for libs and services [P]
 - Files: C:\\SpecForge\\tests\\unit\\**\\*.test.ts
 - Increase coverage for lib and service helpers
 - Run: `npm run test:unit`
 
-T041. Polish: performance pass and no-op fast paths [P]
+T043. Polish: performance pass and no-op fast paths [P]
 - Files: C:\\SpecForge\\src\\services\\reconciliation\\diff.ts, C:\\SpecForge\\src\\services\\github\\*
 - Add batching/pagination and p95 no-op paths
 - Run: `npm run test && npm run typecheck`
 
-T042. Polish: docs and README
+T044. Polish: docs and README
 - Files: C:\\SpecForge\\README.md
 - Document commands, JSON outputs, and safety guarantees
 - Run: `git add README.md && git commit -m "docs: update README for CLI"`
@@ -256,11 +266,12 @@ Parallel Groups
 
 Dependency Notes
 - T001–T007 must precede all others
-- Contract tests (T008–T009) precede CLI wiring (T030, T032, T035)
-- Integration tests (T010–T014) precede feature implementations (T036–T038)
-- Models (T015–T020) precede services (T024–T029)
-- Services precede CLI commands (T030–T034)
-- Integration glue (T039) after core flows (T036–T038)
-- Polish (T040–T042) last
+- Contract tests (T008–T009) precede CLI wiring (T030, T032, T035, T037)
+- Integration tests (T010–T014) precede feature implementations (T038–T040)
+- Models (T015–T020) precede services (T024–T029, T036)
+- Services precede CLI commands (T030–T035)
+- README service (T036) precedes CLI commands that generate README sections
+- Integration glue (T041) after core flows (T038–T040)
+- Polish (T042–T044) last
 
 

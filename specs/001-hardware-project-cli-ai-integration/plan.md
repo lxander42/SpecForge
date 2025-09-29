@@ -40,7 +40,7 @@ Build a cross-platform TypeScript/Node.js CLI (oclif) that orchestrates GitHub P
 **Testing**: vitest + ts-node for integration stubs; contract tests generated from Phase 1
 **Target Platform**: Windows, macOS, Linux (Node.js CLI)
 **Project Type**: single (CLI + services)
-**Performance Goals**: Create/update 500 issues < 60s with backoff; p95 command < 5s when no-op
+**Performance Goals**: Create/update 500 issues < 60s with backoff; p95 command < 5s when no-op (no-op defined as: no GitHub changes needed, existing state matches desired state, all checks pass without API calls)
 **Constraints**: Idempotent operations; rate-limit safe; human edits preserved; machine-parseable `--json` outputs
 **Scale/Scope**: Teams 2-50; projects up to 2k issues; 5 phase-gates; 4 disciplines
 
