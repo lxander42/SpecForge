@@ -70,84 +70,84 @@ Tasks
 - Wire package.json bin: "specforge": "bin/specforge.js"
 - Run: `npm pkg set bin.specforge="bin/specforge.js"`
 
-T008. Contract test for init.schema.json [P]
+[X] T008. Contract test for init.schema.json [P]
 - Test: C:\\SpecForge\\tests\\contract\\init.contract.test.ts
 - Contract: C:\\SpecForge\\specs\\001-hardware-project-cli-ai-integration\\contracts\\init.schema.json
 - Behavior: Validate required fields, enum constraints, additionalProperties=false
 - Run: `npx vitest run C:\\SpecForge\\tests\\contract\\init.contract.test.ts`
 
-T009. Contract test for refactor.schema.json [P]
+[X] T009. Contract test for refactor.schema.json [P]
 - Test: C:\\SpecForge\\tests\\contract\\refactor.contract.test.ts
 - Contract: C:\\SpecForge\\specs\\001-hardware-project-cli-ai-integration\\contracts\\refactor.schema.json
 - Behavior: Validate required fields, flags, additionalProperties=false
 - Run: `npx vitest run C:\\SpecForge\\tests\\contract\\refactor.contract.test.ts`
 
-T010. Integration test: initialize a new project [P]
+[X] T010. Integration test: initialize a new project [P]
 - Test: C:\\SpecForge\\tests\\integration\\init.flow.test.ts
 - Scenario (quickstart + spec): creates labels, milestones, project board, issues; prunes checklists; requirements scaffold
 - Run: `npx vitest run C:\\SpecForge\\tests\\integration\\init.flow.test.ts`
 
-T011. Integration test: refactor existing project [P]
+[X] T011. Integration test: refactor existing project [P]
 - Test: C:\\SpecForge\\tests\\integration\\refactor.flow.test.ts
 - Scenario: reconcile/prune, preserve manual edits, change summary
 - Run: `npx vitest run C:\\SpecForge\\tests\\integration\\refactor.flow.test.ts`
 
-T012. Integration test: requirements package generation [P]
+[X] T012. Integration test: requirements package generation [P]
 - Test: C:\\SpecForge\\tests\\integration\\requirements.flow.test.ts
 - Scenario: generate structured package, baseline tagging, approval gate
 - Run: `npx vitest run C:\\SpecForge\\tests\\integration\\requirements.flow.test.ts`
 
-T013. Integration test: change proposals and approvals [P]
+[X] T013. Integration test: change proposals and approvals [P]
 - Test: C:\\SpecForge\\tests\\integration\\requirements-change.flow.test.ts
 - Scenario: create issues for gaps, draft updates, sign-off required
 - Run: `npx vitest run C:\\SpecForge\\tests\\integration\\requirements-change.flow.test.ts`
 
-T014. Integration test: AI-assistable labeling policy [P]
+[X] T014. Integration test: AI-assistable labeling policy [P]
 - Test: C:\\SpecForge\\tests\\integration\\ai-labeling.flow.test.ts
 - Scenario: apply AI-assistable only where allowed; include hints; never for design/verification tasks
 - Run: `npx vitest run C:\\SpecForge\\tests\\integration\\ai-labeling.flow.test.ts`
 
-T015. Create models: entities.ts (Project)
+[X] T015. Create models: entities.ts (Project)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add types/zod schema for Project per data-model.md
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.project.test.ts`
 
-T016. Create models: entities.ts (Phase)
+[X] T016. Create models: entities.ts (Phase)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add Phase with gate criteria and milestoneId
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.phase.test.ts`
 
-T017. Create models: entities.ts (RequirementsPackage)
+[X] T017. Create models: entities.ts (RequirementsPackage)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add RequirementsPackage (path, version, baselineTag, sections)
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.requirementsPackage.test.ts`
 
-T018. Create models: entities.ts (Requirement)
+[X] T018. Create models: entities.ts (Requirement)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add Requirement (id, section, text, acceptanceCriteria, verificationMethod)
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.requirement.test.ts`
 
-T019. Create models: entities.ts (WbsItem)
+[X] T019. Create models: entities.ts (WbsItem)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add WbsItem (id, title, phase, disciplineTags, aiAssistable, aiHint, dependencies)
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.wbsItem.test.ts`
 
-T020. Create models: entities.ts (Baseline, ChangeLog)
+[X] T020. Create models: entities.ts (Baseline, ChangeLog)
 - File: C:\\SpecForge\\src\\models\\entities.ts
 - Add Baseline and ChangeLog structures
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\models.entities.baseline-changelog.test.ts`
 
-T021. Core lib: typed errors and idempotency helpers [P]
+[X] T021. Core lib: typed errors and idempotency helpers [P]
 - Files: C:\\SpecForge\\src\\lib\\errors.ts, C:\\SpecForge\\src\\lib\\idempotency.ts
 - Implement error hierarchy; content hashing and upsert helpers
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\lib.errors-idempotency.test.ts`
 
-T022. Core lib: config, prompts, ascii, rules [P]
+[X] T022. Core lib: config, prompts, ascii, rules [P]
 - Files: C:\\SpecForge\\src\\lib\\config.ts, C:\\SpecForge\\src\\lib\\prompts.ts, C:\\SpecForge\\src\\lib\\ascii.ts, C:\\SpecForge\\src\\lib\\rules.ts
 - Implement config load/save, inquirer steps, splash animation, AI guardrails
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\lib.core-assets.test.ts`
 
-T023. Core lib: shared schemas [P]
+[X] T023. Core lib: shared schemas [P]
 - File: C:\\SpecForge\\src\\lib\\schema.ts
 - Zod schemas mirroring entities and CLI inputs
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\lib.schema.test.ts`
