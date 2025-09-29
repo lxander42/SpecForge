@@ -25,21 +25,21 @@ Dependencies Order
 
 Tasks
 
-T001. Initialize Node/TypeScript workspace and structure (repo-wide)
+[X] T001. Initialize Node/TypeScript workspace and structure (repo-wide)
 - Files/Dirs: C:\\SpecForge\\package.json, tsconfig.json, .npmrc, .gitignore, .eslint.cjs, .prettierrc, C:\\SpecForge\\src\\, C:\\SpecForge\\tests\\
 - Scripts: build, test, test:unit, test:contract, test:integration, lint, typecheck
 - Result: Baseline tooling ready
 - Run: `npm init -y && npm pkg set type=module`
 
-T002. Install runtime dependencies
+[X] T002. Install runtime dependencies
 - Deps: oclif, @oclif/core, @octokit/rest, @octokit/graphql, zod, inquirer, ora, chalk, undici, js-yaml
 - Run: `npm i @oclif/core @octokit/rest @octokit/graphql zod inquirer ora chalk undici js-yaml`
 
-T003. Install dev dependencies
+[X] T003. Install dev dependencies
 - DevDeps: typescript, vitest, ts-node, @types/node, eslint, @typescript-eslint/parser, @typescript-eslint/eslint-plugin, prettier, tsx
 - Run: `npm i -D typescript vitest ts-node @types/node eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin prettier tsx`
 
-T004. Project layout per plan.md
+[X] T004. Project layout per plan.md
 - Create directories:
   - C:\\SpecForge\\src\\cli\\
   - C:\\SpecForge\\src\\services\\github\\
@@ -55,17 +55,17 @@ T004. Project layout per plan.md
   - C:\\SpecForge\\tests\\unit\\
 - Run: `mkdir -Force C:\\SpecForge\\src\\cli,src\\services\\github,src\\services\\requirements,src\\services\\wbs,src\\services\\reconciliation,src\\services\\ai,src\\services\\telemetry,src\\lib,src\\models,tests\\contract,tests\\integration,tests\\unit`
 
-T005. Configure TypeScript and Vitest
+[X] T005. Configure TypeScript and Vitest
 - Files: C:\\SpecForge\\tsconfig.json, C:\\SpecForge\\vitest.config.ts
 - Add path aliases if desired (e.g., @src/*)
 - Run: `npx tsc --init` then create vitest config
 
-T006. ESLint/Prettier baseline
+[X] T006. ESLint/Prettier baseline
 - Files: C:\\SpecForge\\.eslint.cjs, C:\\SpecForge\\.prettierrc
 - Rules: Typescript + import order, no-floating-promises, etc.
 - Run: `npx eslint --init | cat`
 
-T007. Seed readme and CLI bin entry
+[X] T007. Seed readme and CLI bin entry
 - Files: C:\\SpecForge\\README.md, C:\\SpecForge\\bin\\specforge.js (oclif entry)
 - Wire package.json bin: "specforge": "bin/specforge.js"
 - Run: `npm pkg set bin.specforge="bin/specforge.js"`
