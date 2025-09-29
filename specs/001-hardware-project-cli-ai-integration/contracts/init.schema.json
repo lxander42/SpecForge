@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://specforge.dev/schemas/init.schema.json",
+  "title": "InitCommand",
+  "type": "object",
+  "properties": {
+    "org": { "type": "string" },
+    "repo": { "type": "string" },
+    "disciplines": {
+      "type": "array",
+      "items": { "enum": ["Mechanical", "Electrical", "Firmware", "Software"] }
+    },
+    "complexity": { "enum": ["low", "medium", "high"] },
+    "aiProvider": { "type": "string" },
+    "dryRun": { "type": "boolean" },
+    "json": { "type": "boolean" }
+  },
+  "required": ["org", "repo", "disciplines", "complexity"],
+  "additionalProperties": false
+}
+
