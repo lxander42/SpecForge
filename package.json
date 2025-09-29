@@ -1,6 +1,6 @@
 {
   "name": "specforge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "\"Where specs are hammered into real hardware.\" SpecForge is a hardware specification CLI that bridges the gap between innovation and manufacturing. It guides teams from idea through prototype to production with structured templates, BOM tracking, and maturity gates.",
   "main": "dist/index.js",
   "bin": {
@@ -24,6 +24,22 @@
   ],
   "author": "",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lxander42/SpecForge"
+  },
+  "homepage": "https://github.com/lxander42/SpecForge#readme",
+  "bugs": {
+    "url": "https://github.com/lxander42/SpecForge/issues"
+  },
+  "files": [
+    "dist/src/**/*",
+    "dist/index.js",
+    "dist/index.d.ts",
+    "bin/**/*",
+    "README.md",
+    "LICENSE"
+  ],
   "type": "module",
   "dependencies": {
     "@oclif/core": "4.5.4",

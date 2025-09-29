@@ -1,6 +1,6 @@
 import { Octokit } from '@octokit/rest';
-import { GraphQLClient } from '@octokit/graphql';
-import { config } from '../../lib/config.js';
+import { graphql } from '@octokit/graphql';
+import { Config } from '../../lib/config.js';
 import { logger } from '../telemetry/logger.js';
 import { SpecForgeError, GitHubError } from '../../lib/errors.js';
 
@@ -28,6 +28,7 @@ export class GitHubClient {
   private maxRetryDelayMs: number;
 
   constructor(options: GitHubClientOptions = {}) {
+    const config = new Config();
     const auth = options.auth || config.get('github.token') || process.env.GITHUB_TOKEN;
     if (!auth) {
       throw new SpecForgeError('GitHub token is required. Set GITHUB_TOKEN environment variable or configure via CLI.');
@@ -103,7 +104,7 @@ export class GitHubClient {
         used,
       };
     } catch (error) {
-      throw new GitHubError('Failed to get rate limit information', { cause: error });
+      throw new GitHubError('Failed to get rate limit information', undefined, { cause: error });
     }
   }
 
@@ -155,9 +156,9 @@ export class GitHubClient {
         if (error.status && error.status >= 400 && error.status < 500) {
           throw new GitHubError(
             `${operationType} operation failed with client error: ${error.message}`,
+            error.status,
             { 
               cause: error,
-              status: error.status,
               operation: operationType,
             }
           );
@@ -179,6 +180,7 @@ export class GitHubClient {
 
     throw new GitHubError(
       `${operationType} operation failed after ${this.retryAttempts + 1} attempts`,
+      undefined,
       { 
         cause: lastError,
         operation: operationType,

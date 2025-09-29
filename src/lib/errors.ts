@@ -33,8 +33,7 @@ export abstract class SpecForgeError extends Error {
 }
 
 // Configuration and setup errors
-export class ConfigurationError extends SpecForgeError {
-  readonly code = 'CONFIG_ERROR';
+export abstract class ConfigurationError extends SpecForgeError {
   readonly category = 'configuration';
 }
 
@@ -55,7 +54,7 @@ export class InvalidConfigError extends ConfigurationError {
 }
 
 // GitHub API errors
-export class GitHubError extends SpecForgeError {
+export abstract class GitHubError extends SpecForgeError {
   readonly category = 'github';
   
   constructor(
@@ -103,8 +102,7 @@ export class GitHubPermissionError extends GitHubError {
 }
 
 // Validation errors
-export class ValidationError extends SpecForgeError {
-  readonly code = 'VALIDATION_ERROR';
+export abstract class ValidationError extends SpecForgeError {
   readonly category = 'validation';
   
   constructor(
@@ -135,7 +133,7 @@ export class SchemaValidationError extends ValidationError {
 }
 
 // File system and I/O errors
-export class FileSystemError extends SpecForgeError {
+export abstract class FileSystemError extends SpecForgeError {
   readonly category = 'filesystem';
   
   constructor(
@@ -179,7 +177,7 @@ export class DirectoryCreateError extends FileSystemError {
 }
 
 // Business logic errors
-export class BusinessLogicError extends SpecForgeError {
+export abstract class BusinessLogicError extends SpecForgeError {
   readonly category = 'business';
 }
 
@@ -223,7 +221,7 @@ export class PhaseGateError extends BusinessLogicError {
 }
 
 // AI and automation errors
-export class AIError extends SpecForgeError {
+export abstract class AIError extends SpecForgeError {
   readonly category = 'ai';
 }
 
@@ -252,7 +250,7 @@ export class AIPolicyViolationError extends AIError {
 }
 
 // Network and external service errors
-export class NetworkError extends SpecForgeError {
+export abstract class NetworkError extends SpecForgeError {
   readonly category = 'network';
   
   constructor(
@@ -365,8 +363,8 @@ export function createErrorWithContext(
   context: Record<string, unknown>
 ): SpecForgeError {
   const error = new ErrorClass(...args);
-  error.context = { ...error.context, ...context };
-  return error;
+  // Create new instance with merged context since context is readonly
+  return new ErrorClass(...args, { ...error.context, ...context });
 }
 
 // Error aggregation for batch operations
