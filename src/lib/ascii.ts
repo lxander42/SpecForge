@@ -306,3 +306,8 @@ export function getTerminalWidth(): number {
 export function shouldUseColors(): boolean {
   return process.stdout.isTTY && !process.env.NO_COLOR;
 }
+
+// Simple splash display function
+export async function displaySplash(): Promise<void> {
+  await displayAnimatedSplash({ compact: true, duration: 1000 });
+}

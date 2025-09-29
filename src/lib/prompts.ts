@@ -245,6 +245,13 @@ export async function confirmAction(
   }
 }
 
+export async function promptForConfirmation(
+  message: string,
+  defaultValue = false
+): Promise<boolean> {
+  return await confirmAction(message, defaultValue);
+}
+
 export async function confirmDangerousAction(message: string): Promise<boolean> {
   try {
     const { typeConfirm } = await inquirer.prompt([

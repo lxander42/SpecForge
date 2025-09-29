@@ -35,20 +35,24 @@ export const PhaseSchema = z.object({
 
 export type PhaseEntity = z.infer<typeof PhaseSchema>;
 
+// Requirements Section entity
+export const RequirementsSectionSchema = z.object({
+  title: z.string().describe('Section title'),
+  requirements: z.array(z.lazy(() => RequirementSchema)).describe('Requirements in this section'),
+  description: z.string().optional().describe('Section description'),
+  order: z.number().describe('Section order'),
+});
+
+export type RequirementsSection = z.infer<typeof RequirementsSectionSchema>;
+
 // Requirements Package entity
 export const RequirementsPackageSchema = z.object({
   path: z.string().describe('Path to requirements package'),
   version: z.string().regex(/^\d+\.\d+\.\d+$/).describe('Semantic version'),
   baselineTag: z.string().optional().describe('Git tag for baseline'),
-  sections: z.object({
-    functional: z.string().describe('Functional requirements section'),
-    performance: z.string().describe('Performance requirements section'),
-    environmental: z.string().describe('Environmental requirements section'),
-    interfaces: z.string().describe('Interface requirements section'),
-    safety: z.string().describe('Safety requirements section'),
-    verification: z.string().describe('Verification methods section'),
-    acceptance: z.string().describe('Acceptance criteria section'),
-  }).describe('Requirements sections'),
+  sections: z.record(z.string(), RequirementsSectionSchema).describe('Requirements sections'),
+  generatedAt: z.string().optional().describe('Generation timestamp'),
+  contentHash: z.string().optional().describe('Content hash for integrity'),
 });
 
 export type RequirementsPackage = z.infer<typeof RequirementsPackageSchema>;
@@ -56,10 +60,12 @@ export type RequirementsPackage = z.infer<typeof RequirementsPackageSchema>;
 // Requirement entity
 export const RequirementSchema = z.object({
   id: z.string().describe('Requirement identifier (e.g., FR-001)'),
-  section: z.enum(['functional', 'performance', 'environmental', 'interfaces', 'safety', 'verification', 'acceptance']).describe('Requirements section'),
+  section: z.string().describe('Requirements section'),
   text: z.string().describe('Requirement text'),
-  acceptanceCriteria: z.string().describe('Acceptance criteria'),
-  verificationMethod: VerificationMethodEnum.describe('Verification method'),
+  acceptanceCriteria: z.array(z.string()).optional().describe('Acceptance criteria'),
+  verificationMethod: VerificationMethodEnum.optional().describe('Verification method'),
+  rationale: z.string().optional().describe('Requirement rationale'),
+  priority: z.enum(['critical', 'high', 'medium', 'low']).optional().describe('Requirement priority'),
 });
 
 export type Requirement = z.infer<typeof RequirementSchema>;
@@ -68,11 +74,15 @@ export type Requirement = z.infer<typeof RequirementSchema>;
 export const WbsItemSchema = z.object({
   id: z.string().describe('WBS item identifier (issue slug)'),
   title: z.string().describe('WBS item title'),
+  description: z.string().optional().describe('WBS item description'),
   phase: PhaseEnum.describe('Project phase'),
   disciplineTags: z.array(DisciplineEnum).describe('Applicable disciplines'),
   aiAssistable: z.boolean().describe('Whether AI assistance is allowed'),
   aiHint: z.string().optional().describe('AI assistance hint'),
   dependencies: z.array(z.string()).describe('Dependent WBS item IDs'),
+  estimatedHours: z.number().optional().describe('Estimated hours for completion'),
+  priority: z.enum(['critical', 'high', 'medium', 'low']).describe('Task priority'),
+  templateId: z.string().optional().describe('Template ID used to generate this item'),
 });
 
 export type WbsItem = z.infer<typeof WbsItemSchema>;
@@ -80,9 +90,11 @@ export type WbsItem = z.infer<typeof WbsItemSchema>;
 // Baseline entity
 export const BaselineSchema = z.object({
   tag: z.string().describe('Git tag for baseline'),
-  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).describe('Baseline date (YYYY-MM-DD)'),
+  date: z.string().describe('Baseline date (ISO string)'),
   approver: z.string().describe('Baseline approver'),
-  changeLogRef: z.string().describe('Path to changelog file'),
+  changeLogRef: z.string().optional().describe('Path to changelog file'),
+  packageVersion: z.string().optional().describe('Package version at baseline'),
+  contentHash: z.string().optional().describe('Content hash at baseline'),
 });
 
 export type Baseline = z.infer<typeof BaselineSchema>;
@@ -92,6 +104,7 @@ export const ChangeLogEntrySchema = z.object({
   id: z.string().describe('Change entry ID'),
   type: ChangeTypeEnum.describe('Type of change'),
   summary: z.string().describe('Change summary'),
+  details: z.string().optional().describe('Change details'),
 });
 
 export type ChangeLogEntry = z.infer<typeof ChangeLogEntrySchema>;
@@ -99,6 +112,9 @@ export type ChangeLogEntry = z.infer<typeof ChangeLogEntrySchema>;
 // Change Log entity
 export const ChangeLogSchema = z.object({
   path: z.string().describe('Path to changelog file'),
+  fromBaseline: z.string().optional().describe('Previous baseline tag'),
+  toVersion: z.string().optional().describe('Current version'),
+  generatedAt: z.string().optional().describe('Generation timestamp'),
   entries: z.array(ChangeLogEntrySchema).describe('Change log entries'),
 });
 

@@ -152,67 +152,67 @@ Tasks
 - Zod schemas mirroring entities and CLI inputs
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\lib.schema.test.ts`
 
-T024. GitHub services: REST and GraphQL clients [P]
+[X] T024. GitHub services: REST and GraphQL clients [P]
 - Files: C:\\SpecForge\\src\\services\\github\\client.ts, C:\\SpecForge\\src\\services\\github\\projects.ts
 - Implement REST/GraphQL setup, rate-limit safe backoff
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.github.clients.test.ts`
 
-T025. GitHub services: labels, issues, milestones [P]
+[X] T025. GitHub services: labels, issues, milestones [P]
 - Files: C:\\SpecForge\\src\\services\\github\\labels.ts, C:\\SpecForge\\src\\services\\github\\issues.ts, C:\\SpecForge\\src\\services\\github\\milestones.ts
 - Implement create/update and ensure-exists operations
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.github.resources.test.ts`
 
-T026. WBS and reconciliation services [P]
+[X] T026. WBS and reconciliation services [P]
 - Files: C:\\SpecForge\\src\\services\\wbs\\generator.ts, C:\\SpecForge\\src\\services\\reconciliation\\diff.ts
 - Implement golden checklist, pruning, and idempotent diff/merge
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.wbs-recon.test.ts`
 
-T027. Requirements package service [P]
+[X] T027. Requirements package service [P]
 - Files: C:\\SpecForge\\src\\services\\requirements\\writer.ts
 - Implement markdown writer, baselines under requirements/ and baselines/
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.requirements.test.ts`
 
-T028. AI adapter service [P]
+[X] T028. AI adapter service [P]
 - Files: C:\\SpecForge\\src\\services\\ai\\provider.ts
 - Abstract interface with allowlisted capabilities; pluggable providers
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.ai.adapter.test.ts`
 
-T029. Telemetry/logging service [P]
+[X] T029. Telemetry/logging service [P]
 - Files: C:\\SpecForge\\src\\services\\telemetry\\logger.ts
 - Implement structured logging, metrics hooks
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.telemetry.test.ts`
 
-T030. CLI command: init (failing, wire to services)
+[X] T030. CLI command: init (failing, wire to services)
 - File: C:\\SpecForge\\src\\cli\\init.ts
 - Reads inputs per init.schema.json; dryRun and --json supported
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\init.ts --help | cat`
 
-T031. CLI command: plan
+[X] T031. CLI command: plan
 - File: C:\\SpecForge\\src\\cli\\plan.ts
 - Regenerate WBS + requirements previews (no writes by default)
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\plan.ts --help | cat`
 
-T032. CLI command: refactor
+[X] T032. CLI command: refactor
 - File: C:\\SpecForge\\src\\cli\\refactor.ts
 - Reconcile state with --reconcile/--prune and --json outputs
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\refactor.ts --help | cat`
 
-T033. CLI command: baseline
+[X] T033. CLI command: baseline
 - File: C:\\SpecForge\\src\\cli\\baseline.ts
 - Approve requirements baseline and tag
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\baseline.ts --help | cat`
 
-T034. CLI command: labels
+[X] T034. CLI command: labels
 - File: C:\\SpecForge\\src\\cli\\labels.ts
 - Ensure labels/milestones/projects exist
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\labels.ts --help | cat`
 
-T035. CLI command: constitution
+[X] T035. CLI command: constitution
 - File: C:\\SpecForge\\src\\cli\\constitution.ts
 - Implement /constitution step for project-specific principles and constraints
 - Run: `npx tsx C:\\SpecForge\\src\\cli\\constitution.ts --help | cat`
 
-T036. README section generation service (missing coverage for FR-022)
+[X] T036. README section generation service (missing coverage for FR-022)
 - Files: C:\\SpecForge\\src\\services\\requirements\\readme.ts
 - Generate README sections explaining slash commands, phase flows, and refactor requests
 - Run: `npx vitest run C:\\SpecForge\\tests\\unit\\services.requirements.readme.test.ts`
