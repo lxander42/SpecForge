@@ -69,10 +69,10 @@ When creating this spec from a user prompt:
 5. **Given** a project with AI-assistable tasks, **When** I view the labeled issues, **Then** I should see clear hints on how AI can help with research, literature reviews, and requirement drafting, but never for engineering design tasks like FEA or schematic creation.
 
 ### Edge Cases
-- What happens when the GitHub API is unavailable or rate-limited?
-- How does the system handle conflicting manual edits when reconciling project state?
-- What occurs when a phase gate cannot pass due to incomplete requirements approval?
-- How does the system handle projects with mixed discipline requirements or unusual complexity levels?
+- The CLI implements automatic retries with exponential backoff for GitHub API unavailability or rate-limiting.
+- The CLI intelligently merges non-conflicting changes and flags conflicts for manual review when reconciling project state with manual edits.
+- The CLI blocks progression to the next phase automatically and notifies the project lead via issue when a phase gate cannot pass due to incomplete requirements approval.
+- The CLI allows selection of multiple disciplines and adjusts complexity dynamically via AI-guided questions to include relevant checklist items for projects with mixed requirements or unusual complexity.
 
 ## Requirements *(mandatory)*
 
@@ -102,6 +102,14 @@ When creating this spec from a user prompt:
 - **FR-023**: System MUST create labels for phases, disciplines, complexity, and AI-assistable tasks
 - **FR-024**: System MUST support re-running to reconcile project state and provide clear change summaries
 - **FR-025**: System MUST never apply AI-assistable labels to tasks requiring engineering design or verification
+- **FR-026**: System MUST implement automatic retries with exponential backoff for GitHub API unavailability or rate-limiting during operations.
+- **FR-027**: System MUST intelligently merge non-conflicting changes and flag conflicts for manual review during project state reconciliation to preserve user edits.
+- **FR-028**: System MUST block progression to the next phase and notify the project lead via issue when a phase gate cannot pass due to incomplete requirements approval.
+- **FR-029**: System MUST allow selection of multiple disciplines and adjust complexity dynamically via AI-guided questions during initialization to handle mixed requirements and prune checklists appropriately.
+
+### Non-Functional Requirements
+- **NFR-001**: The CLI must handle GitHub API failures reliably by implementing automatic retries with exponential backoff (up to a reasonable limit, e.g., 5 attempts) to ensure robust integration without immediate failure.
+- **NFR-002**: The CLI must require a personal access token (PAT) provided via environment variable or secure config file for GitHub API authentication.
 
 ### Key Entities
 - **Project**: Represents a hardware project with associated metadata, disciplines, complexity level, and constitution
@@ -142,5 +150,17 @@ When creating this spec from a user prompt:
 - [x] Requirements generated
 - [x] Entities identified
 - [x] Review checklist passed
+
+---
+
+## Clarifications
+
+### Session 2025-09-29
+
+- Q: When the GitHub API is unavailable or rate-limited during CLI operations (e.g., creating issues or updating projects), what should the CLI do? → A: Implement automatic retries with exponential backoff (up to a reasonable limit).
+- Q: When the CLI reconciles project state and detects conflicts with manual edits (e.g., user-modified issue descriptions or assignees), what should it do? → A: Intelligently merge non-conflicting parts and flag conflicts for manual review.
+- Q: What should occur when a phase gate cannot pass due to incomplete requirements approval (e.g., no designated member sign-off)? → A: Block progression to the next phase automatically and notify the project lead via issue or email.
+- Q: How should the CLI handle authentication with the GitHub API? → A: Require a personal access token (PAT) provided via environment variable or secure config file.
+- Q: How should the CLI handle projects with mixed discipline requirements (e.g., both Mechanical and Electrical) or unusual complexity levels during checklist pruning and initialization? → A: Allow selection of multiple disciplines and adjust complexity dynamically via AI-guided questions to include relevant checklist items.
 
 ---
