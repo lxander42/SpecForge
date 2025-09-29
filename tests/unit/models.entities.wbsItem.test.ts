@@ -10,6 +10,7 @@ describe('WbsItem Entity', () => {
       disciplineTags: ['Electrical'],
       aiAssistable: false,
       dependencies: ['WBS-002', 'WBS-003'],
+      priority: 'high',
     };
 
     const result = validateWbsItem(validWbsItem);
@@ -37,6 +38,7 @@ describe('WbsItem Entity', () => {
         disciplineTags: ['Mechanical'],
         aiAssistable: true,
         dependencies: [],
+        priority: 'medium',
       };
       
       expect(() => validateWbsItem(wbsItem)).not.toThrow();
@@ -66,6 +68,7 @@ describe('WbsItem Entity', () => {
         disciplineTags: [discipline],
         aiAssistable: true,
         dependencies: [],
+        priority: 'medium',
       };
       
       expect(() => validateWbsItem(wbsItem)).not.toThrow();
@@ -79,6 +82,7 @@ describe('WbsItem Entity', () => {
       disciplineTags: ['Mechanical', 'Electrical'],
       aiAssistable: false,
       dependencies: [],
+      priority: 'medium',
     };
 
     expect(() => validateWbsItem(multiDisciplineItem)).not.toThrow();
@@ -190,6 +194,7 @@ describe('WbsItem Entity', () => {
         disciplineTags: ['Electrical'],
         aiAssistable: false,
         dependencies: [],
+        priority: 'medium',
       },
       {
         id: 'WBS-002',
@@ -198,6 +203,7 @@ describe('WbsItem Entity', () => {
         disciplineTags: ['Mechanical'],
         aiAssistable: false,
         dependencies: [],
+        priority: 'medium',
       },
       {
         id: 'WBS-003',
@@ -206,6 +212,7 @@ describe('WbsItem Entity', () => {
         disciplineTags: ['Electrical', 'Mechanical'],
         aiAssistable: false,
         dependencies: [],
+        priority: 'medium',
       },
     ];
 
@@ -225,6 +232,7 @@ describe('WbsItem Entity', () => {
         aiAssistable: true,
         aiHint: 'Create standard project documentation templates',
         dependencies: [],
+        priority: 'medium',
       },
       {
         id: 'WBS-005',
@@ -234,6 +242,7 @@ describe('WbsItem Entity', () => {
         aiAssistable: true,
         aiHint: 'Generate test case templates based on requirements',
         dependencies: [],
+        priority: 'medium',
       },
     ];
 

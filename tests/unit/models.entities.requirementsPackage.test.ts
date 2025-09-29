@@ -8,13 +8,48 @@ describe('RequirementsPackage Entity', () => {
       version: '1.0.0',
       baselineTag: 'v1.0-reqs',
       sections: {
-        functional: 'functional-requirements.md',
-        performance: 'performance-requirements.md',
-        environmental: 'environmental-requirements.md',
-        interfaces: 'interface-requirements.md',
-        safety: 'safety-requirements.md',
-        verification: 'verification-methods.md',
-        acceptance: 'acceptance-criteria.md',
+        functional: {
+          title: 'Functional Requirements',
+          requirements: [],
+          description: 'System functional requirements',
+          order: 1,
+        },
+        performance: {
+          title: 'Performance Requirements',
+          requirements: [],
+          description: 'System performance requirements',
+          order: 2,
+        },
+        environmental: {
+          title: 'Environmental Requirements',
+          requirements: [],
+          description: 'Environmental conditions',
+          order: 3,
+        },
+        interfaces: {
+          title: 'Interface Requirements',
+          requirements: [],
+          description: 'System interfaces',
+          order: 4,
+        },
+        safety: {
+          title: 'Safety Requirements',
+          requirements: [],
+          description: 'Safety requirements',
+          order: 5,
+        },
+        verification: {
+          title: 'Verification Methods',
+          requirements: [],
+          description: 'Verification approaches',
+          order: 6,
+        },
+        acceptance: {
+          title: 'Acceptance Criteria',
+          requirements: [],
+          description: 'Acceptance criteria',
+          order: 7,
+        },
       },
     };
 

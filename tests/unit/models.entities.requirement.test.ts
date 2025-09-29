@@ -7,7 +7,7 @@ describe('Requirement Entity', () => {
       id: 'FR-001',
       section: 'functional',
       text: 'System shall operate within specified temperature range',
-      acceptanceCriteria: 'System operates from -20°C to +60°C without failure',
+      acceptanceCriteria: ['System operates from -20°C to +60°C without failure'],
       verificationMethod: 'Test',
     };
 
@@ -41,7 +41,7 @@ describe('Requirement Entity', () => {
         id: 'REQ-001',
         section,
         text: 'Test requirement',
-        acceptanceCriteria: 'Test criteria',
+        acceptanceCriteria: ['Test criteria'],
         verificationMethod: 'Inspection',
       };
       
@@ -68,7 +68,7 @@ describe('Requirement Entity', () => {
         id: 'REQ-001',
         section: 'functional',
         text: 'Test requirement',
-        acceptanceCriteria: 'Test criteria',
+        acceptanceCriteria: ['Test criteria'],
         verificationMethod: method,
       };
       
@@ -105,7 +105,7 @@ describe('Requirement Entity', () => {
         id,
         section: 'functional',
         text: 'Test requirement',
-        acceptanceCriteria: 'Test criteria',
+        acceptanceCriteria: ['Test criteria'],
         verificationMethod: 'Inspection',
       };
 
@@ -118,7 +118,7 @@ describe('Requirement Entity', () => {
       id: 'FR-001',
       section: 'functional',
       text: 'The system shall provide user authentication',
-      acceptanceCriteria: 'Users can log in with valid credentials and are denied access with invalid credentials',
+      acceptanceCriteria: ['Users can log in with valid credentials and are denied access with invalid credentials'],
       verificationMethod: 'Test',
     };
 
@@ -132,7 +132,7 @@ describe('Requirement Entity', () => {
       id: 'PR-001',
       section: 'performance',
       text: 'The system shall respond to user inputs within 100ms',
-      acceptanceCriteria: 'Response time measured under normal load conditions is ≤ 100ms',
+      acceptanceCriteria: ['Response time measured under normal load conditions is ≤ 100ms'],
       verificationMethod: 'Test',
     };
 
@@ -146,7 +146,7 @@ describe('Requirement Entity', () => {
       id: 'ER-001',
       section: 'environmental',
       text: 'The system shall operate in temperature range -20°C to +60°C',
-      acceptanceCriteria: 'System functions normally at temperature extremes and transitions',
+      acceptanceCriteria: ['System functions normally at temperature extremes and transitions'],
       verificationMethod: 'Test',
     };
 
@@ -159,7 +159,7 @@ describe('Requirement Entity', () => {
       id: 'SR-001',
       section: 'safety',
       text: 'The system shall fail to a safe state in case of power loss',
-      acceptanceCriteria: 'System enters safe mode within 500ms of power interruption',
+      acceptanceCriteria: ['System enters safe mode within 500ms of power interruption'],
       verificationMethod: 'Test',
     };
 
@@ -172,7 +172,7 @@ describe('Requirement Entity', () => {
       id: 'REQ-001',
       section: 'performance',
       text: 'System response time requirement',
-      acceptanceCriteria: 'Response time < 100ms',
+      acceptanceCriteria: ['Response time < 100ms'],
       verificationMethod: 'Test',
     };
 
@@ -180,7 +180,7 @@ describe('Requirement Entity', () => {
       id: 'REQ-002',
       section: 'interfaces',
       text: 'Connector type requirement',
-      acceptanceCriteria: 'Uses USB-C connector',
+      acceptanceCriteria: ['Uses USB-C connector'],
       verificationMethod: 'Inspection',
     };
 
@@ -188,7 +188,7 @@ describe('Requirement Entity', () => {
       id: 'REQ-003',
       section: 'environmental',
       text: 'Thermal performance requirement',
-      acceptanceCriteria: 'Maximum temperature rise 40°C',
+      acceptanceCriteria: ['Maximum temperature rise 40°C'],
       verificationMethod: 'Analysis',
     };
 
@@ -196,7 +196,7 @@ describe('Requirement Entity', () => {
       id: 'REQ-004',
       section: 'functional',
       text: 'User interface requirement',
-      acceptanceCriteria: 'Intuitive navigation',
+      acceptanceCriteria: ['Intuitive navigation'],
       verificationMethod: 'Demonstration',
     };
 
